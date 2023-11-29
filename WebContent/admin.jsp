@@ -9,11 +9,9 @@
 <body>
 <%@ include file="auth.jsp" %>
 <%@ include file="jdbc.jsp" %>
+<%@ include file = "header.jsp" %>
 <%
-// TODO: Include files auth.jsp and jdbc.jsp
-%>
-<%
-    if(authenticated){
+    if(authenticated && isAdmin){
         out.println("<h3>Administrator Sales Report by Day</h3>");
         out.println("<table>");
         out.println("<tr>");
@@ -41,7 +39,7 @@
         }
         out.println("</table>");
     } else{
-        out.println("you are not logged in");
+        out.println("you are not logged in or you do not have access to this page");
     }
 // TODO: Write SQL query that prints out total order amount by day
 String sql = "";

@@ -33,6 +33,13 @@ CREATE TABLE customer (
     PRIMARY KEY (customerId)
 );
 
+CREATE TABLE admin(
+    adminId INT,
+    PRIMARY KEY (adminId),
+    FOREIGN KEY (adminId) REFERENCES customer(customerId)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 CREATE TABLE paymentmethod (
     paymentMethodId     INT IDENTITY,
     paymentType         VARCHAR(20),

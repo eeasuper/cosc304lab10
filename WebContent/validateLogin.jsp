@@ -3,6 +3,7 @@
 <%
 	String authenticatedUser = null;
 	session = request.getSession(true);
+	boolean isAdmin = false;
 
 	try
 	{
@@ -11,10 +12,13 @@
 	catch(IOException e)
 	{	System.err.println(e); }
 
-	if(authenticatedUser != null)
+	if(authenticatedUser != null){
+		isAdmin = validateAdmin(out, request, session);
 		response.sendRedirect("index.jsp");		// Successful login
-	else
+	}
+	else{
 		response.sendRedirect("login.jsp");		// Failed login - redirect back to login page with a message 
+	}				
 %>
 
 
@@ -42,7 +46,7 @@
 				passwordMatches = rs.getString(2).equals(password);
 			}
 			if(passwordMatches){
-				retStr = username;	
+				retStr = username;
 			}
 
 			// TODO: Check if userId and password match some customer account. If so, set retStr to be the username.
@@ -67,3 +71,39 @@
 	}
 %>
 
+<%!
+	boolean validateAdmin(JspWriter out,HttpServletRequest request, HttpSession session) throws IOException
+	{
+		String username = session.getAttribute("authenticatedUser").toString();
+		boolean isAdmin = false;
+		int customerId = 0;
+		try{
+			getConnection();
+			String sql1 = "SELECT customerId FROM customer WHERE userid = ?;";
+			PreparedStatement pstmt1 = con.prepareStatement(sql1);
+			pstmt1.setString(1, username);
+			ResultSet rs1 = pstmt1.executeQuery();
+			if(rs1.next()){
+				customerId = rs1.getInt(1);
+			}
+			String sql = "SELECT customerId, userid FROM customer JOIN admin ON customer.customerId = admin.adminId WHERE customerId = ?;";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, customerId);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				isAdmin = true;
+				session.setAttribute("isAdmin", true);
+			}else{
+				session.setAttribute("isAdmin", false);
+			}
+		}
+		catch (SQLException ex) {
+			out.println(ex);
+		}
+		finally
+		{
+			closeConnection();
+		}	
+		return isAdmin;
+	}
+%>

@@ -1,0 +1,4 @@
+November 28, 2023, Dup
+ -added admin table to the .ddl file! 
+- Edited auth.jsp,validateLogin.jsp, admin.jsp. I made it so that arnold is an admin and only he can view the admin page. 
+-created debugheader.jsp. add whatever you want to put into session.setAttribute("debugMessage", someMsgHere);
