@@ -45,7 +45,8 @@
 String sql = "";
 
 %>
-
+<a href="loaddata.jsp">Reinitialize the database!</a>     
+<hr>
 </body>
 </html>
 

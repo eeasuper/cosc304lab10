@@ -1,6 +1,14 @@
 <%
 	boolean authenticated = session.getAttribute("authenticatedUser") == null ? false : true;
-	boolean isAdmin = session.getAttribute("isAdmin").toString() == "true" ? true : false;
+	boolean isAdmin = false;
+	if(session.getAttribute("isAdmin") == null){
+		isAdmin = false;
+	}else{
+		if(session.getAttribute("isAdmin").toString()=="true"){
+			isAdmin = true;
+		}
+	}
+	//boolean isAdmin = session.getAttribute("isAdmin").toString() == "true" ? true : false;
 	//boolean isAdmin = true;
 	if (!authenticated)
 	{

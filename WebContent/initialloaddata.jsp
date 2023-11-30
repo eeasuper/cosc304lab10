@@ -4,8 +4,7 @@
 <%@ page import="java.util.Scanner" %>
 <%@ page import="java.io.File" %>
 <%@ include file="jdbc.jsp" %>
-<%@ include file = "header.jsp" %>
-<%@ include file = "auth.jsp" %>
+
 
 <html>
 <head>
@@ -15,7 +14,7 @@
 
 <%
 out.print("<h1>Connecting to database.</h1><br><br>");
-if(authenticated && isAdmin){
+
 try
 {	// Load driver class
     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -39,8 +38,7 @@ try ( Connection con = DriverManager.getConnection(urlForLoadData, uid, pw); )
     scanner.useDelimiter(";");
     while (scanner.hasNext())
     {
-        //String sql1 = "ALTER TABLE customer NOCHECK CONSTRAINT ALL;";
-        //stmt.execute(sql1);
+        
         String command = scanner.next();
         if (command.trim().equals("") || command.trim().equals("go"))
             continue;
@@ -85,10 +83,7 @@ finally
 {
     closeConnection();
 }
-}else{
-    out.print("you are not logged in as an admin!");
-}
+
 %>
 </body>
 </html> 
- 
