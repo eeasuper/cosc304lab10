@@ -2,3 +2,9 @@ November 28, 2023, Dup
  -added admin table to the .ddl file! 
 - Edited auth.jsp,validateLogin.jsp, admin.jsp. I made it so that arnold is an admin and only he can view the admin page. 
 -created debugheader.jsp. add whatever you want to put into session.setAttribute("debugMessage", someMsgHere);
+
+November 30, 2023,or sometime around that Dup
+- made reinitializing database work.
+
+December 3, 2023, Dup
+- made addproduct work.

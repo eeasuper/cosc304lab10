@@ -45,8 +45,16 @@
 String sql = "";
 
 %>
-<a href="loaddata.jsp">Reinitialize the database!</a>     
+<a href="loaddata.jsp">Reinitialize the database!</a> 
+<br>   
+<a href="addproductform.jsp">Add a product!</a>  
 <hr>
+<%
+if (session.getAttribute("productMessage") != null){
+	out.println("<p>"+session.getAttribute("productMessage").toString()+"</p>");
+    session.setAttribute("productMessage", null);
+}
+%>
 </body>
 </html>
 
