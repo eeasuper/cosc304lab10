@@ -37,7 +37,6 @@ else
 			out.println("Expected product with four entries. Got: "+product);
 			continue;
 		}
-		
 		out.print("<tr><td>"+product.get(0)+"</td>");
 		out.print("<td>"+product.get(1)+"</td>");
 
@@ -63,9 +62,18 @@ else
 		{
 			out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
 		}		
-
+		String productId = (String)product.get(0);	
 		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
+		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
+		%>
+		<td align="right">
+			<form action="removecart.jsp" method="post">
+				<input type="hidden" name="removeProductId" value="<%= productId %>">
+				<input type="submit" value="Remove">
+			</form>
+		</td>
+		<%
+
 		out.println("</tr>");
 		total = total +pr*qty;
 	}
@@ -77,6 +85,8 @@ else
 }
 %>
 <h2><a href="listprod.jsp">Continue Shopping</a></h2>
+<h2><a href="index.jsp">Back to Home Page</a></h2> 
+
 </body>
 </html> 
 

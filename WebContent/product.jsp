@@ -37,16 +37,42 @@ try
     while(rs.next()){
         String name = rs.getString("productName");
         String price = rs.getString("productPrice");
+        String description = rs.getString("productDesc");
         out.println("<h1>"+rs.getString(2)+"</h1>");
         String imgLink1 = "displayImage.jsp?id="+pId;
         out.println("<img src="+rs.getString("productImageURL")+" />");
         out.println("<img src="+imgLink1+" />");
         out.println("<p>Id: "+pId+"</p>");
         out.println("<p> Price:"+price+"</p>");
+
+        //displaying product description; if none available, displays that its out of stock 
+        out.println("<p>Description: "+ description + "</p>"); 
+        String inventoryQuery = "SELECT wi.warehouseId, wi.quantity, w.warehouseName FROM ProductInventory wi JOIN Warehouse w ON wi.warehouseId = w.warehouseId WHERE wi.productId = ?";
+        try {
+            PreparedStatement inventoryStmt = con.prepareStatement(inventoryQuery);
+            inventoryStmt.setInt(1, pId);
+            ResultSet inventoryResult = inventoryStmt.executeQuery();
+
+
+            int totalInventory = 0;
+            out.println("<h3>Inventory:</h3>");
+            out.println("<ul>");
+            while (inventoryResult.next()) {
+                String warehouseName = inventoryResult.getString("warehouseName");
+                int inventoryQuantity = inventoryResult.getInt("quantity");
+                totalInventory+=inventoryQuantity;
+                out.println("<li>" + warehouseName + ": " + inventoryQuantity + " units</li>");
+            }
+            out.println("</ul>");
+            if (totalInventory == 0) {
+              out.println("<p>This product is currently out of stock in all warehouses.</p>");
+          }  
+        } catch (SQLException ex) {
+            out.println(ex);
+        }
         String cartLink = "addcart.jsp?id=" + pId + "&name=" + name + "&price=" + price;
         out.println("<h2><a href="+ cartLink+">Add to Cart</a></h2>");
-
-    }
+      }
 }catch (SQLException ex) {
 	out.println(ex);
 }

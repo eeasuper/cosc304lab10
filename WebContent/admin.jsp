@@ -48,7 +48,12 @@ String sql = "";
 <a href="loaddata.jsp">Reinitialize the database!</a> 
 <br>   
 <a href="addproductform.jsp">Add a product!</a>  
+<br>
+<a href="removeproductform.jsp">Remove a product!</a>
+<br>
+<a href="listcustomers.jsp">List All Customers</a>
 <hr>
+
 <%
 if (session.getAttribute("productMessage") != null){
 	out.println("<p>"+session.getAttribute("productMessage").toString()+"</p>");

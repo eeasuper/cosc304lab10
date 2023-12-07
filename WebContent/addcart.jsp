@@ -15,6 +15,7 @@ if (productList == null)
 String id = request.getParameter("id");
 String name = request.getParameter("name");
 String price = request.getParameter("price");
+out.println("Price parameter: " + price); // Add this line
 Integer quantity = new Integer(1);
 
 // Store product information in an ArrayList
