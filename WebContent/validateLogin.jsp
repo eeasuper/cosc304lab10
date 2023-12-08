@@ -38,6 +38,7 @@
 		{
 			getConnection();
 			String sql = "SELECT userid, password FROM customer WHERE userid=?;";
+
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery();

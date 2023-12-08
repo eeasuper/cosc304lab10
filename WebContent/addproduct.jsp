@@ -18,6 +18,7 @@ if(authenticated && isAdmin){
     }catch(Exception ex){
         session.setAttribute("productMessage","It is possible you entered the wrong input value for one of the boxes. " +ex);
     }
+
     if(productName.length() >0){
     try{
         getConnection();

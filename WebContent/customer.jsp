@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="basiccss.jsp" %>
+
 <title>Customer Page</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 
 <%@ include file="auth.jsp"%>
 <%@ page import="java.text.NumberFormat" %>
@@ -58,7 +61,15 @@ String sql = "";
 
 // Make sure to close connection
 %>
-
+<a href="addreviewform.jsp">Make a Review!</a>
+<hr>
+<h2>MESSAGE:</h2>
+<%
+if (session.getAttribute("reviewMessage") != null){
+	out.println("<p>"+session.getAttribute("reviewMessage").toString()+"</p>");
+    session.setAttribute("reviewMessage", null);
+}
+%>
 </body>
 </html>
 

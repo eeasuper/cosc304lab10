@@ -8,6 +8,7 @@
 
 <html>
 <head>
+	<%@ include file="basiccss.jsp" %>
 <title>YOUR NAME Grocery Shipment Processing</title>
 </head>
 <body>

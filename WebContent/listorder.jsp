@@ -5,17 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-		table, th, td {
-  border: 1px solid black;
-}
-	</style>
+<%@ include file="basiccss.jsp" %>
 <title>Dup Grocery Order List</title>
 </head>
-<body>
-
+<body align ="center">
+	<%@ include file="header.jsp" %>
 <h1>Order List</h1>
-
+<div align="center">
 <%
 //Note: Forces loading of SQL Server driver
 try
@@ -104,7 +100,7 @@ stmt = con.createStatement();	)
 }
 
 %>
-
+</div>
 </body>
 </html>
 

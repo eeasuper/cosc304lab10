@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ include file="basiccss.jsp" %>
 <%@ include file = "header.jsp" %>
 <title>Add a Product</title>
 </head>

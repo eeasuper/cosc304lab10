@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <%@ include file="basiccss.jsp" %>
 <title>Administrator Page</title>
 </head>
 <body>
@@ -48,7 +49,12 @@ String sql = "";
 <a href="loaddata.jsp">Reinitialize the database!</a> 
 <br>   
 <a href="addproductform.jsp">Add a product!</a>  
+<br>
+<a href="removeproductform.jsp">Remove a product!</a>
+<br>
+<a href="listcustomers.jsp">List All Customers</a>
 <hr>
+<h3>MESSAGE: </h3>
 <%
 if (session.getAttribute("productMessage") != null){
 	out.println("<p>"+session.getAttribute("productMessage").toString()+"</p>");

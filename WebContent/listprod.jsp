@@ -2,15 +2,17 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Currency" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ include file="basiccss.jsp" %>
 <title>YOUR NAME Grocery</title>
 </head>
 <body>
-
+<%@ include file="header.jsp" %>
+<div align="center">
 <h1>Search for the products you want to buy:</h1>
-
 <form method="get" action="listprod.jsp">
 <input type="text" name="productName" size="50">
 <input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
@@ -118,6 +120,6 @@ stmt = con.createStatement();	)
 // NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 // out.println(currFormat.format(5.0);	// Prints $5.00
 %>
-
+</div>
 </body>
 </html>
