@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.io.*,java.sql.*"%>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ include file="jdbc.jsp" %>
 <%
 	String authenticatedUser = null;
@@ -8,6 +10,10 @@
 	try
 	{
 		authenticatedUser = validateLogin(out,request,session);
+		if(authenticatedUser != null){
+			HashMap<Integer, ArrayList<Object>> productList = checkCart(out, request, session);
+			session.setAttribute("productList", productList);
+		}
 	}
 	catch(IOException e)
 	{	System.err.println(e); }
@@ -20,7 +26,51 @@
 		response.sendRedirect("login.jsp");		// Failed login - redirect back to login page with a message 
 	}				
 %>
+<%!
+	//this function is kind of a copy and paste of checkcart.jsp
+	HashMap<Integer, ArrayList<Object>> checkCart(JspWriter out,HttpServletRequest request, HttpSession session) throws IOException
+	{
+		HashMap<Integer, ArrayList<Object>> productList =  new HashMap<Integer, ArrayList<Object>>();
+		try{
+			int customerId = 0;
+			getConnection();
+			String username = session.getAttribute("authenticatedUser").toString();
+			//get customer Id
+			String sql1 = "SELECT customerId FROM customer WHERE userid = ?;";
+			PreparedStatement custpstmt = con.prepareStatement(sql1);
+			custpstmt.setString(1, username);
+			ResultSet custrs = custpstmt.executeQuery();
+			if(custrs.next()){
+				customerId = custrs.getInt(1);
+			}
+			//continue to do cart query
+			String sql = "SELECT product.productId, product.productName, quantity, price FROM incart JOIN product ON incart.productId = product.productId WHERE customerId = ?;";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, customerId);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				ArrayList<Object> product = new ArrayList<Object>();
+				Integer pid = new Integer(rs.getInt(1));	
+				if(productList == null || !productList.containsKey(pid)){ //updating the session and hashmap
+					product.add(pid);
+					
+					product.add(rs.getString(2));
+					product.add(rs.getDouble(4));
+					product.add(rs.getInt(3));
+					productList.put(pid,product);
+				}
+			}
+		}catch (SQLException ex) {
+			out.println(ex);
+		}
+		finally
+		{
+			closeConnection();
+		}
+		return productList;
+	}
 
+%>
 
 <%!
 	String validateLogin(JspWriter out,HttpServletRequest request, HttpSession session) throws IOException
@@ -49,9 +99,7 @@
 			if(passwordMatches){
 				retStr = username;
 			}
-
-			// TODO: Check if userId and password match some customer account. If so, set retStr to be the username.
-					
+	
 		} 
 		catch (SQLException ex) {
 			out.println(ex);
@@ -61,7 +109,7 @@
 			closeConnection();
 		}	
 		
-		if(retStr != null)
+		if(retStr != null) //user has been validated if it is not null.
 		{	session.removeAttribute("loginMessage");
 			session.setAttribute("authenticatedUser",username);
 		}

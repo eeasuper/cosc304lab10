@@ -98,12 +98,12 @@ CREATE TABLE orderproduct (
 );
 
 CREATE TABLE incart (
-    orderId             INT,
+    customerId          INT,
     productId           INT,
     quantity            INT,
     price               DECIMAL(10,2),  
-    PRIMARY KEY (orderId, productId),
-    FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
+    PRIMARY KEY (customerId, productId),
+    FOREIGN KEY (customerId) REFERENCES customer(customerId)
         ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (productId) REFERENCES product(productId)
         ON UPDATE CASCADE ON DELETE CASCADE

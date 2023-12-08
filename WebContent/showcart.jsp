@@ -4,6 +4,9 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Map" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%@ include file="jdbc.jsp" %>
+<%@ include file="checkcart.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +16,15 @@
 <body>
 
 <%
-// Get the current list of products
-@SuppressWarnings({"unchecked"})
-HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
 if (productList == null)
-{	out.println("<H1>Your shopping cart is empty!</H1>");
-	productList = new HashMap<String, ArrayList<Object>>();
+{	
+	productList = new HashMap<Integer, ArrayList<Object>>();
+}
+
+if (productList == null)
+{	
+	out.println("<H1>Your shopping cart is empty!</H1>");
 }
 else
 {
@@ -29,9 +34,9 @@ else
 	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	out.println("<th>Price</th><th>Subtotal</th></tr>");
 	double total =0;
-	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+	Iterator<Map.Entry<Integer, ArrayList<Object>>> iterator = productList.entrySet().iterator();
 	while (iterator.hasNext()) 
-	{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+	{	Map.Entry<Integer, ArrayList<Object>> entry = iterator.next();
 		ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
 		if (product.size() < 4)
 		{
@@ -63,7 +68,8 @@ else
 		{
 			out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
 		}		
-		String productId = (String)product.get(0);	
+
+		int productId = (int)product.get(0);
 		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
 		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
 		%>
