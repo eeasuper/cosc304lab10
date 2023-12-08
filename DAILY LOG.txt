@@ -45,7 +45,10 @@ into the database. If its successful, then it sends you to accountconfirmation.j
 However, there is an issue: when I try to make a new account, it redirects me to the login.jsp page saying 
 "You have not been authorized to access the URL http://localhost/shop/createaccountprocess.jsp" So, its not allowing you to go from index -> createaccount -> creataccountprocess
 This seems to be due to the auth page, and the error message is to not being authenticated. Let me know if you have a fix for this. 
+<<<<<<< HEAD
 
 - Dup: made review work
 
 Dec 7: integration ~ Dup
+=======
+>>>>>>> a465a816b40ec85653fa98e12d0ab4035b609f4b
