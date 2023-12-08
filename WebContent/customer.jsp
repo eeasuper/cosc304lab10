@@ -61,7 +61,12 @@ String sql = "";
 
 // Make sure to close connection
 %>
-<a href="addreviewform.jsp">Make a Review!</a>
+<div>
+    <a href="changeaccountdetails.jsp">Change account details!</a>
+</div>
+<div>
+    <a href="addreviewform.jsp">Make a Review!</a>
+</div>
 <hr>
 <h2>MESSAGE:</h2>
 <%

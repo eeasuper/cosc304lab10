@@ -12,6 +12,7 @@ DROP TABLE warehouse;
 DROP TABLE orderproduct;
 DROP TABLE incart;
 DROP TABLE product;
+DROP TABLE productsales;
 DROP TABLE category;
 DROP TABLE ordersummary;
 DROP TABLE paymentmethod;
@@ -83,6 +84,14 @@ CREATE TABLE product (
     categoryId          INT,
     PRIMARY KEY (productId),
     FOREIGN KEY (categoryId) REFERENCES category(categoryId)
+);
+
+CREATE TABLE productsales (
+    productId       INT,
+    totalSales      INT,
+    PRIMARY KEY (productId),
+    FOREIGN KEY (productId) REFERENCES product(productId)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE orderproduct (

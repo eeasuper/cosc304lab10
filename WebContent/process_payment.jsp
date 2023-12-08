@@ -1,7 +1,7 @@
 
 <%@ include file="jdbc.jsp" %>
-<%@ include file = "header.jsp" %>
-<%@ include file = "auth.jsp" %>
+<//%@ include file = "header.jsp" %>
+<//%@ include file = "auth.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*" %>
 <%  String custId = request.getParameter("customerId") ;

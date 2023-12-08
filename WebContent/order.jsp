@@ -98,8 +98,26 @@ try
 					pstmt3.setInt(3,qty);
 					pstmt3.setDouble(4,pr);
 					pstmt3.executeUpdate();
-				}
-				
+
+					//updating productSales relation with the productId and quantity 
+					//Updating quantity if product already in table
+					String updateQuery = "UPDATE productsales SET totalSales = totalSales + ? WHERE productId = ?";
+					PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+					updateStmt.setInt(1,qty);
+					updateStmt.setInt(2,Integer.parseInt(productId));
+					int rowsUpdated = updateStmt.executeUpdate();
+					updateStmt.close();
+
+					//inserting product into table if not already present
+					if (rowsUpdated==0){
+						String insertQuery = "INSERT INTO productsales (productId, totalSales) VALUES (?, ?)";
+						PreparedStatement insertStmt = con.prepareStatement(insertQuery);
+						insertStmt.setInt(1,Integer.parseInt(productId));
+						insertStmt.setInt(2,qty);
+						insertStmt.executeUpdate();
+						insertStmt.close();
+					}
+				}			
 				//then, update orderSummary with the totalAmount variable. 
 
 				PreparedStatement pstmt4 = con.prepareStatement("UPDATE orderSummary SET totalAmount=? WHERE orderId=?;");

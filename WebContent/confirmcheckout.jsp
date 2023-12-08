@@ -1,7 +1,7 @@
 
 <%@ include file="jdbc.jsp" %>
-<%@ include file = "header.jsp" %>
-<%@ include file = "auth.jsp" %>
+<//%@ include file = "header.jsp" %>
+<//%@ include file = "auth.jsp" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.HashMap" %>
