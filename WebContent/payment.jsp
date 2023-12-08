@@ -8,7 +8,6 @@
     <%@ include file="header.jsp" %>
     <h1>Enter Payment Details</h1>
     <%String customerId = request.getParameter("customerId");
-    out.println(customerId);
     %>
 
     <form action="process_payment.jsp" method="post">
