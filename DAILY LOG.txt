@@ -8,3 +8,44 @@ November 30, 2023,or sometime around that Dup
 
 December 3, 2023, Dup
 - made addproduct work.
+
+
+Dec 4
+- Added a "view shoping cart" option on home page (index.jsp)
+
+Product.jsp 
+-added product description
+-added inventory information 
+
+showcart.jsp
+-added remove item functionality (includes removecart file)
+
+Dec 5
+- added remove item option on admin page(inckudes removeproduct and removeproductform files)
+- added "back to home page" button cart page
+- made some changes to order.jsp, changged the logic a bit and some variable names so that checkout works correctly
+
+
+Dec6
+-Changed flow of informaton. Instead of checkout -> order.jsp its now checkout -> confirmCheckout (to check if password and username
+are correct) - > payment -> process_payments (to add new crditCard info the database) -> order.
+-Instead, order just adds the information to orderSummaryt instead of verifying the password/username
+
+-added back buttons for error messages on checkout 
+-wrong name, wrong password, empty cart
+
+-also added back button when errors occur on inputting credit card information 
+
+-added a show all customers button on admin page(and listcustomers file to do it )
+
+-added account creation page createaccount.jsp. Redirects to creataccountprocess.jsp. There , it loads it 
+into the database. If its successful, then it sends you to accountconfirmation.jsp file to tell you it wokred. 
+
+-lastly, i've tried to make a way to create a new account, which includes the files createaccount, createaccountprocess, and accountconfirmation 
+However, there is an issue: when I try to make a new account, it redirects me to the login.jsp page saying 
+"You have not been authorized to access the URL http://localhost/shop/createaccountprocess.jsp" So, its not allowing you to go from index -> createaccount -> creataccountprocess
+This seems to be due to the auth page, and the error message is to not being authenticated. Let me know if you have a fix for this. 
+
+- Dup: made review work
+
+Dec 7: integration ~ Dup
