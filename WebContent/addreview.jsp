@@ -62,11 +62,12 @@ if(authenticated){
                 getConnection();
                 rating= Integer.parseInt(request.getParameter("rating"));
                 long millis=System.currentTimeMillis();  
-                java.sql.Date date=new java.sql.Date(millis);
+                //java.sql.Date date=new java.sql.Date(millis);
+                java.sql.Timestamp time = new Timestamp(System.currentTimeMillis());
                 String sql = "INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (?,?,?,?,?);";
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 pstmt.setInt(1, rating);
-                pstmt.setDate(2, date);
+                pstmt.setTimestamp(2, time);
                 pstmt.setInt(3, custId);
                 pstmt.setInt(4, productId);
                 pstmt.setString(5, review);

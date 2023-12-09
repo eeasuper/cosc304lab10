@@ -1,7 +1,6 @@
 
 <%@ include file="jdbc.jsp" %>
-<//%@ include file = "header.jsp" %>
-<//%@ include file = "auth.jsp" %>
+
 <%@ page import="java.sql.*" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.HashMap" %>
@@ -20,21 +19,12 @@ String password = request.getParameter("password");
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
-// Determine if valid customer id was entered
-// Determine if there are products in the shopping cart
-// If either are not true, display an error message
-
-// Make connection
-//String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
-//String uid = "sa";
-//String pw = "304#sa#PW";
 NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 currFormat.setMaximumFractionDigits(2);
 Currency currency = Currency.getInstance("CAD");
 currFormat.setCurrency(currency);
 
 
-//try(Connection con = DriverManager.getConnection(url,uid,pw);)
 try
 {
     getConnection();

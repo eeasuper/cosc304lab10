@@ -11,11 +11,11 @@ DROP TABLE productinventory;
 DROP TABLE warehouse;
 DROP TABLE orderproduct;
 DROP TABLE incart;
-DROP TABLE product;
 DROP TABLE productsales;
-DROP TABLE category;
 DROP TABLE ordersummary;
 DROP TABLE paymentmethod;
+DROP TABLE product;
+DROP TABLE category;
 DROP TABLE customer;
 
 
@@ -239,6 +239,6 @@ UPDATE Product SET productImageURL = 'img/kidneys.jpeg' WHERE ProductId = 6;
 UPDATE Product SET productImageURL = 'img/pancreas.jpg' WHERE ProductId = 7;
 UPDATE Product SET productImageURL = 'img/stomach.png' WHERE ProductId = 8;
 
-INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (3, '2019-10-15 10:25:55',2,1,'THIS IS A REVIEW!!!');
+INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (3, '2019-10-15 10:25:55',2,1,'SO DELICIOUS!!');
 
 INSERT INTO incart VALUES (1, 3, 8, 20);

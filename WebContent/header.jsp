@@ -11,15 +11,22 @@
         <a href="logout.jsp">Log out</a>
         <%
         String userNa = (String) session.getAttribute("authenticatedUser");
-        if (userNa != null){
+        if(userNa == null){
+            out.println("<a >Not signed in.</a>");
+        }else{
             out.println("<a id=\"loginname\" >Signed in as: "+userNa+"</a>");
-            HashMap<Integer, ArrayList<Object>> productList = (HashMap<Integer, ArrayList<Object>>) session.getAttribute("productList");
-            if (productList != null && !productList.isEmpty()) {
+        
+        }
+        //if (userNa != null){
+
+            //@SuppressWarnings({"unchecked"})
+            //HashMap<Integer, ArrayList<Object>> productList = (HashMap<Integer, ArrayList<Object>>) session.getAttribute("productList");
+            //if (productList != null && !productList.isEmpty()) {
             
                 out.println("<a href=\"showcart.jsp\">View Shopping Cart</a>");
                 
-            }
-        }
+            //}
+        //}
     %>
     </nav>
     

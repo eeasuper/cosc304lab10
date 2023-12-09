@@ -1,5 +1,7 @@
 
 <%@ include file="jdbc.jsp" %>
+
+
 <//%@ include file = "header.jsp" %>
 <//%@ include file = "auth.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

@@ -8,6 +8,8 @@
 <%@ page import="java.util.Currency" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%@ include file="jdbc.jsp" %>
+<%@ include file="checkcart.jsp" %>
+
 <!DOCTYPE html>
 <html>
 	<%@ include file="basiccss.jsp" %>
@@ -23,18 +25,9 @@ int custId = Integer.parseInt(request.getParameter("customerId"));
 // Get password
 String password = request.getParameter("password");
 
-@SuppressWarnings({"unchecked"})
-HashMap<Integer, ArrayList<Object>> productList = (HashMap<Integer, ArrayList<Object>>) session.getAttribute("productList");
+//@SuppressWarnings({"unchecked"})
+//HashMap<Integer, ArrayList<Object>> productList = (HashMap<Integer, ArrayList<Object>>) session.getAttribute("productList");
 
-
-// Determine if valid customer id was entered
-// Determine if there are products in the shopping cart
-// If either are not true, display an error message
-
-// Make connection
-//String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
-//String uid = "sa";
-//String pw = "304#sa#PW";
 NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 currFormat.setMaximumFractionDigits(2);
 Currency currency = Currency.getInstance("CAD");
@@ -155,8 +148,26 @@ try
 				out.println("<h1>Order completed. Will be shipped soon...</h1>");
 				out.println("<h1>Your order reference number is: "+orderId+"</h1>");
 				// Clear cart if order placed successfully
-				productList.clear();		
-
+				//
+				if(authenticated && cartExists){
+					try{
+						getConnection();
+						String sql1 = "DELETE FROM incart WHERE customerId = ?;";
+						PreparedStatement pstmt1 = con.prepareStatement(sql1);
+						pstmt1.setInt(1, customerId); //customerId is from checkcart.jsp
+						//pstmt1.setInt(2, removeProductId);
+						pstmt1.executeUpdate();
+						
+					}catch (SQLException ex) {
+						out.println(ex);
+					}
+					finally
+					{
+						closeConnection();
+					}
+					
+				}
+				session.setAttribute("productList", null); //reset cart
 		}else{
 			System.out.println("Failed to retrieve generated keys");
 		}

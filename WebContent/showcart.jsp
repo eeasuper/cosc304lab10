@@ -14,17 +14,18 @@
 <title>Your Shopping Cart</title>
 </head>
 <body>
-
+<%@ include file="header.jsp" %>
 <%
 
-if (productList == null)
-{	
-	productList = new HashMap<Integer, ArrayList<Object>>();
-}
+//if (productList == null)
+//{	
+//	productList = new HashMap<Integer, ArrayList<Object>>();
+//}
 
 if (productList == null)
 {	
 	out.println("<H1>Your shopping cart is empty!</H1>");
+	//session.setAttribute("productMessage", "xx");
 }
 else
 {
@@ -35,6 +36,7 @@ else
 	out.println("<th>Price</th><th>Subtotal</th></tr>");
 	double total =0;
 	Iterator<Map.Entry<Integer, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+	// session.setAttribute("productMessage", productList);
 	while (iterator.hasNext()) 
 	{	Map.Entry<Integer, ArrayList<Object>> entry = iterator.next();
 		ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
