@@ -240,3 +240,5 @@ UPDATE Product SET productImageURL = 'img/pancreas.jpg' WHERE ProductId = 7;
 UPDATE Product SET productImageURL = 'img/stomach.png' WHERE ProductId = 8;
 
 INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (3, '2019-10-15 10:25:55',2,1,'THIS IS A REVIEW!!!');
+
+INSERT INTO incart VALUES (1, 3, 8, 20);

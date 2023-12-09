@@ -30,8 +30,10 @@ if(authenticated){ //authenticated comes from checkcart.jsp
 	try{
 		getConnection();
 		if(cartExists){//from checkcart.jsp
+			
 			if (productList.containsKey(id))
 			{	
+				session.setAttribute("productMessage", "x1");
 				product = (ArrayList<Object>) productList.get(id); //overwrites previous product ArrayList created. 
 				int curAmount = ((Integer) product.get(3)).intValue();
 				String sql = "UPDATE incart SET quantity = ? WHERE customerId = ? AND productId = ?;";
@@ -42,22 +44,26 @@ if(authenticated){ //authenticated comes from checkcart.jsp
 				pstmt.executeUpdate();
 				product.set(3, new Integer(curAmount+1)); //session
 			}else{
+				
 				String sql = "INSERT INTO incart VALUES (?,?,?,?);";
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, id);
-				pstmt.setString(2, name);
-				pstmt.setString(3, price);
-				pstmt.setInt(4, quantity);
+				
+				pstmt.setInt(1, customerId);
+				pstmt.setInt(2, id);
+				pstmt.setInt(3, quantity);
+				pstmt.setDouble(4, Double.parseDouble(price));
 				pstmt.executeUpdate();
+				
 				productList.put(id,product); //session
 			}
 		}else{
+			//
 			String sql = "INSERT INTO incart VALUES (?,?,?,?);";
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, id);
-			pstmt.setString(2, name);
-			pstmt.setString(3, price);
-			pstmt.setInt(4, quantity);
+			pstmt.setInt(1, customerId);
+			pstmt.setInt(2, id);
+			pstmt.setInt(3, quantity);
+			pstmt.setDouble(4, Double.parseDouble(price));
 			pstmt.executeUpdate();
 			productList.put(id,product); //session
 		}

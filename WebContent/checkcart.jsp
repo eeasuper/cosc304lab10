@@ -20,6 +20,7 @@ if(authenticated){
 		if(custrs.next()){
 			customerId = custrs.getInt(1);
 		}
+		
         //continue to do cart query
         String sql = "SELECT product.productId, product.productName, quantity, price FROM incart JOIN product ON incart.productId = product.productId WHERE customerId = ?;";
         PreparedStatement pstmt = con.prepareStatement(sql);

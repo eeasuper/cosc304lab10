@@ -29,7 +29,7 @@ a{
     position: relative;
     color: #ff2eff;
 }
-th { text-decoration: underline; }
+
 th, td {
     padding: 3px;
     text-align: left;

@@ -22,8 +22,10 @@
 int custId = Integer.parseInt(request.getParameter("customerId"));
 // Get password
 String password = request.getParameter("password");
+
 @SuppressWarnings({"unchecked"})
-HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+HashMap<Integer, ArrayList<Object>> productList = (HashMap<Integer, ArrayList<Object>>) session.getAttribute("productList");
+
 
 // Determine if valid customer id was entered
 // Determine if there are products in the shopping cart
@@ -80,21 +82,21 @@ try
 		if (generatedKeys.next()) {
 			int orderId = generatedKeys.getInt(1);
 			double totalAmount = 0;
-			Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+			Iterator<Map.Entry<Integer, ArrayList<Object>>> iterator = productList.entrySet().iterator();
 				while (iterator.hasNext())
 				{ 	
-					Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+					Map.Entry<Integer, ArrayList<Object>> entry = iterator.next();
 					ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
 					
-					String productId = (String) product.get(0);
-					String price = (String) product.get(2);
+					int productId = Integer.parseInt(product.get(0).toString());
+					String price =  product.get(2).toString();
 					double pr = Double.parseDouble(price);
 					int qty = ( (Integer)product.get(3)).intValue();
 					totalAmount+=pr*qty;
 			
 					PreparedStatement pstmt3 = con.prepareStatement("INSERT INTO orderproduct VALUES (?,?,?,?);");
 					pstmt3.setInt(1,orderId);
-					pstmt3.setInt(2, Integer.parseInt(productId));
+					pstmt3.setInt(2, productId);
 					pstmt3.setInt(3,qty);
 					pstmt3.setDouble(4,pr);
 					pstmt3.executeUpdate();
@@ -104,7 +106,7 @@ try
 					String updateQuery = "UPDATE productsales SET totalSales = totalSales + ? WHERE productId = ?";
 					PreparedStatement updateStmt = con.prepareStatement(updateQuery);
 					updateStmt.setInt(1,qty);
-					updateStmt.setInt(2,Integer.parseInt(productId));
+					updateStmt.setInt(2,productId);
 					int rowsUpdated = updateStmt.executeUpdate();
 					updateStmt.close();
 
@@ -112,7 +114,7 @@ try
 					if (rowsUpdated==0){
 						String insertQuery = "INSERT INTO productsales (productId, totalSales) VALUES (?, ?)";
 						PreparedStatement insertStmt = con.prepareStatement(insertQuery);
-						insertStmt.setInt(1,Integer.parseInt(productId));
+						insertStmt.setInt(1,productId);
 						insertStmt.setInt(2,qty);
 						insertStmt.executeUpdate();
 						insertStmt.close();
@@ -133,14 +135,14 @@ try
 				out.println("<tr>");
 				out.println("<th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th>");
 				out.println("</tr>");
-				Iterator<Map.Entry<String, ArrayList<Object>>> iterator1 = productList.entrySet().iterator();
+				Iterator<Map.Entry<Integer, ArrayList<Object>>> iterator1 = productList.entrySet().iterator();
 					while (iterator1.hasNext()){ 	
 						
-						Map.Entry<String, ArrayList<Object>> entry = iterator1.next();
+						Map.Entry<Integer, ArrayList<Object>> entry = iterator1.next();
 						ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
-						String productId = (String) product.get(0);
+						int productId = Integer.parseInt(product.get(0).toString());
 						String productName = (String) product.get(1);
-						String price = (String) product.get(2);
+						String price =  product.get(2).toString();
 						double pr = Double.parseDouble(price);
 						int qty = ( (Integer)product.get(3)).intValue();
 						double subtotal = pr*qty;

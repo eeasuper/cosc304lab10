@@ -9,7 +9,7 @@
 <head>
   <%@ include file="basiccss.jsp" %>
 <title>Dup and Max's Grocery - Product Information</title>
-<link href="css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -44,7 +44,7 @@ try
         out.println("<h1>"+rs.getString(2)+"</h1>");
         String imgLink1 = "displayImage.jsp?id="+pId;
         out.println("<img src="+rs.getString("productImageURL")+" />");
-        out.println("<img src="+imgLink1+" />");
+        //out.println("<img src="+imgLink1+" />");
         out.println("<p>Id: "+pId+"</p>");
         out.println("<p> Price:"+price+"</p>");
 
