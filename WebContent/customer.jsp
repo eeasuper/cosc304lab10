@@ -14,9 +14,11 @@
 
 <%
 	String userName = (String) session.getAttribute("authenticatedUser");
+    
 %>
 
 <%
+Integer customerId = null;
 try(Connection con = DriverManager.getConnection(url,uid,pw);)
 {
 String sql = "SELECT * FROM customer WHERE userid=?";
@@ -29,6 +31,7 @@ ResultSet rst = pstmt.executeQuery();
 while (rst.next()) {
     out.println("<div>");
     out.println("<h2>Customer Details</h2>");
+    customerId = rst.getInt("customerId");
     out.println("<p><strong>ID:</strong> " + rst.getInt("customerId") + "</p>");
     out.println("<p><strong>First Name:</strong> " + rst.getString("firstName") + "</p>");
     out.println("<p><strong>Last Name:</strong> " + rst.getString("lastName") + "</p>");
@@ -66,6 +69,9 @@ String sql = "";
 </div>
 <div>
     <a href="addreviewform.jsp">Make a Review!</a>
+</div>
+<div>
+    <a href="listuserorders.jsp?customerId=<%= customerId %>">List user orders!</a>
 </div>
 <hr>
 <h2>MESSAGE:</h2>

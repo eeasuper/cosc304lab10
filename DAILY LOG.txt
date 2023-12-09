@@ -45,10 +45,27 @@ into the database. If its successful, then it sends you to accountconfirmation.j
 However, there is an issue: when I try to make a new account, it redirects me to the login.jsp page saying 
 "You have not been authorized to access the URL http://localhost/shop/createaccountprocess.jsp" So, its not allowing you to go from index -> createaccount -> creataccountprocess
 This seems to be due to the auth page, and the error message is to not being authenticated. Let me know if you have a fix for this. 
-<<<<<<< HEAD
 
 - Dup: made review work
 
 Dec 7: integration ~ Dup
-=======
->>>>>>> a465a816b40ec85653fa98e12d0ab4035b609f4b
+
+//DDL 
+Added a productSales table into the DDL; not initialized with any data, but this is dealt with by order.jsp
+
+//order.jsp
+added code which, after adding to ordersummary, updates productSales with the sold quantity. If not present, it inserts the product into the relation
+
+//on index.html
+Added code to display the top 5 products, if any , with ranking and image hyperlink
+
+//confirmcheckout.jsp 
+commented out the inclusion of header and auth since they were causing issues with the sendredirect 
+
+//processpayment.jsop 
+did the same thing as with confirmcheckout.jsp above
+
+//allowing customer to change their information
+added a new link on the customer page (to changeaccountdetails.jsp)
+this ends info to confirmaccountdetails.jsp, which redirects with a message of success or failure 
+if successful it will update the database information for the customer 
